@@ -36,3 +36,9 @@ rtnetlink = "0.14"
 tokio = { version = "1.0", features = ["rt", "macros"] }
 futures = "0.3"
 libc = "0.2"
+
+[profile.release]
+opt-level = 3       # 최대 속도 최적화
+lto = true          # Link Time Optimization
+codegen-units = 1   # 단일 코드 생성 유닛
+strip = true        # 심볼 제거

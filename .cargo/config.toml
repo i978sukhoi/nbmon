@@ -1,0 +1,9 @@
+# Cargo 빌드 설정
+
+[build]
+# 기본 타겟을 musl로 설정 (정적 링크)
+target = "x86_64-unknown-linux-musl"
+
+[target.x86_64-unknown-linux-musl]
+# musl 타겟용 추가 링커 플래그 (필요시)
+rustflags = ["-C", "link-arg=-s"]

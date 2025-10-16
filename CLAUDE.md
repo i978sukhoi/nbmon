@@ -7,22 +7,43 @@
 `nbmon` (Network Bandwidth Monitor)은 Linux의 nload와 bmon에서 영감을 받은 크로스플랫폼 CLI 네트워크 대역폭 모니터링 도구입니다. Rust로 작성되었으며, Windows와 Linux 시스템에서 실시간 네트워크 트래픽 시각화 및 통계를 터미널로 제공합니다.
 
 ### 현재 상태: 🚀 **v0.2.0 - 크로스플랫폼 지원 및 성능 최적화**
-- ✅ 크로스플랫폼 지원 (Windows + Linux)
-- ✅ 병렬 통계 수집 (44% 성능 향상)
+- ✅ 크로스플랫폼 지원 (Windows + Linux)- ✅ 병렬 통계 수집 (44% 성능 향상)
 - ✅ 강화된 에러 처리 및 디버깅
 - ✅ 3가지 실행 모드 지원
 - ✅ 성능 벤치마크 도구
 
 ## 주요 개발 명령어
 
+### 빌드 환경 설정
+
+#### Linux - musl 도구 설치 (필수)
+```bash
+# Ubuntu/Debian
+sudo apt-get install musl-tools
+
+# Fedora/RHEL
+sudo dnf install musl-gcc musl-devel
+
+# Arch Linux
+sudo pacman -S musl
+
+# musl target 추가
+rustup target add x86_64-unknown-linux-musl
+```
+
 ### 빌드 명령어
-- `cargo build` - 디버그 모드로 프로젝트 빌드
-- `cargo build --release` - 릴리즈 모드로 프로젝트 빌드
+- `cargo build` - 디버그 모드로 프로젝트 빌드 (musl 정적 링크)
+- `cargo build --release` - 릴리즈 모드로 프로젝트 빌드 (musl 정적 링크)
 - `cargo run` - 기본 향상된 TUI 모드로 빌드 및 실행
 - `cargo run -- --classic` - 클래식 TUI 모드로 실행
 - `cargo run -- --simple` - 단순 콘솔 출력 모드로 실행
 - `cargo run --example benchmark_parallel` - 성능 벤치마크 실행
 - `cargo clean` - target 디렉터리 정리
+
+**빌드된 바이너리 위치**: `./target/x86_64-unknown-linux-musl/release/nbmon`
+
+> **참고**: 이 프로젝트는 `.cargo/config.toml`을 통해 기본적으로 musl 정적 링크 빌드를 사용합니다.
+> 이를 통해 GLIBC 버전 호환성 문제 없이 대부분의 Linux 배포판에서 실행 가능합니다.
 
 ### 테스트 및 품질 관리
 - `cargo test` - 모든 테스트 실행
